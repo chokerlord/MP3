@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi amiga Jenifer</title>
+    <style>
+        :root {
+            --bg-color: #fcf6f0;
+            --text-color: #5d4037;
+            --heart-red: #ff4d6d;
+            --heart-pink: #ff85a1;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-color);
+            font-family: 'Verdana', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .main-wrapper {
+            display: flex;
+            width: 90%;
+            max-width: 900px;
+            height: 500px;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        /* SECCIÓN IZQUIERDA: TEXTO */
+        .message-section {
+            width: 45%;
+            z-index: 20; /* Asegura que el texto esté siempre al frente */
+            color: var(--text-color);
+        }
+
+        .message-section h2 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .message-section p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 10px 0;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 1s ease-out;
+        }
+
+        .message-section p.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .signature {
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* SECCIÓN DERECHA: ÁRBOL */
+        .tree-section {
+            width: 50%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        /* TRONCO: Ahora está DETRÁS (z-index: 1) */
+        .trunk {
+            width: 25px;
+            height: 0;
+            background: linear-gradient(to right, #6d4c41, #8d6e63);
+            border-radius: 4px 4px 0 0;
+            position: absolute;
+            bottom: 80px;
+            z-index: 1; /* Valor bajo para quedar detrás */
+            transition: height 1.5s ease-in-out;
+        }
+
+        /* COPA DEL ÁRBOL: Ahora está DELANTE (z-index: 5) */
+        .tree-crown {
+            position: absolute;
+            bottom: 200px; /* Ajustado para que el tronco entre un poco en la copa */
+            width: 300px;
+            height: 300px;
+            z-index: 5; /* Valor alto para tapar el tronco */
+        }
+
+        /* CORAZONES DEL ÁRBOL */
+        .leaf {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: var(--heart-red);
+            transform: rotate(-45deg) scale(0);
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .leaf::before, .leaf::after {
+            content: '';
+            width: 16px;
+            height: 16px;
+            background-color: inherit;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .leaf::before { top: -8px; left: 0; }
+        .leaf::after { left: 8px; top: 0; }
+
+        /* CONTADOR INFERIOR */
+        .timer-box {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: left;
+            color: var(--text-color);
+        }
+
+        #timer {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .rain {
+            position: fixed;
+            top: -20px;
+            z-index: 10;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <div class="message-section">
+            <h2>Para mi amiga Jenifer:</h2>
+            <p class="msg-line">"Gracias por tu hermosa amistad."</p>
+            <p class="msg-line">"Eres una persona increíble y agradezco cada momento que compartimos."</p>
+            <p class="msg-line signature">— ¡Eres la mejor!</p>
+            
+            <div class="timer-box">
+                <div style="font-size: 0.9rem;">Nuestra amistad comenzó hace...</div>
+                <div id="timer">Calculando tiempo...</div>
+            </div>
+        </div>
+
+        <div class="tree-section">
+            <div class="tree-crown" id="treeCrown"></div>
+            <div class="trunk" id="trunk"></div>
+        </div>
+    </div>
+
+    <script>
+        // Fecha de inicio (Año, Mes-1, Día)
+        const startDate = new Date(2017, 6, 06, 0, 0, 0); 
+
+        // 1. Animación del tronco
+        setTimeout(() => {
+            document.getElementById('trunk').style.height = '180px'; // Un poco más alto para que se oculte tras los corazones
+        }, 300);
+
+        // 2. Generar hojas en forma de corazón (Matemática de corazón)
+        function createHeartTree() {
+            const crown = document.getElementById('treeCrown');
+            const totalLeaves = 110;
+
+            for (let i = 0; i < totalLeaves; i++) {
+                setTimeout(() => {
+                    const leaf = document.createElement('div');
+                    leaf.className = 'leaf';
+
+                    const t = Math.random() * Math.PI * 2;
+                    const x = 16 * Math.pow(Math.sin(t), 3);
+                    const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+
+                    const scale = Math.random() * 8 + 4; 
+                    const posX = x * scale + 150;
+                    const posY = y * scale + 150;
+
+                    leaf.style.left = `${posX}px`;
+                    leaf.style.top = `${posY}px`;
+                    
+                    const color = Math.random() > 0.5 ? '#ff4d6d' : '#ff85a1';
+                    leaf.style.backgroundColor = color;
+                    
+                    crown.appendChild(leaf);
+
+                    setTimeout(() => {
+                        leaf.style.transform = `rotate(-45deg) scale(${Math.random() * 0.4 + 0.6})`;
+                    }, 50);
+                }, i * 25);
+            }
+        }
+
+        // 3. Mostrar frases
+        function showText() {
+            const lines = document.querySelectorAll('.msg-line');
+            lines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.classList.add('show');
+                }, 1000 + (index * 800));
+            });
+        }
+
+        // 4. Lluvia ambiental
+        function ambientRain() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤';
+                heart.className = 'rain';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = Math.random() * 15 + 10 + 'px';
+                heart.style.color = '#ffb3c1';
+                heart.style.opacity = Math.random();
+                heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 7000);
+            }, 400);
+        }
+
+        // 5. Contador
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - startDate;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+            document.getElementById('timer').innerText = `${days} días ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        createHeartTree();
+        showText();
+        ambientRain();
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>
