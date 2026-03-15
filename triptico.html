@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Técnica Abierta de Colocación de Guantes</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(135deg,#e9f6ff,#fdfefe);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+/* ESCENA */
+
+.scene{
+width:1000px;
+height:520px;
+perspective:2000px;
+cursor:pointer;
+}
+
+/* TRIPTICO */
+
+.triptico{
+width:100%;
+height:100%;
+position:relative;
+transform-style:preserve-3d;
+}
+
+/* PORTADA */
+
+.portada{
+position:absolute;
+width:100%;
+height:100%;
+background:linear-gradient(145deg,#dff3ff,#f8fdff);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+box-shadow:0 15px 35px rgba(0,0,0,0.15);
+border-radius:12px;
+transition:1s;
+z-index:5;
+padding:40px;
+}
+
+.portada img{
+width:280px;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+.portada h1{
+color:#3a7ca5;
+}
+
+/* PANEL CONTENEDOR */
+
+.panels{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+}
+
+/* PANEL */
+
+.panel{
+width:33.33%;
+background:#ffffff;
+border:1px solid #e3eef6;
+padding:20px;
+box-sizing:border-box;
+overflow:auto;
+transition:1s;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* EFECTO CERRADO */
+
+.izq{
+transform-origin:right;
+transform:rotateY(90deg);
+}
+
+.der{
+transform-origin:left;
+transform:rotateY(-90deg);
+}
+
+/* ESTADO ABIERTO */
+
+.abierto .portada{
+transform:rotateY(180deg);
+opacity:0;
+}
+
+.abierto .izq{
+transform:rotateY(0);
+}
+
+.abierto .der{
+transform:rotateY(0);
+}
+
+/* TITULOS */
+
+h2{
+color:#4a90c2;
+margin-top:10px;
+}
+
+h3{
+color:#6faed9;
+}
+
+/* ICONOS */
+
+.icon{
+font-size:28px;
+color:#7db9e8;
+margin-bottom:10px;
+}
+
+/* LISTAS */
+
+ul{
+padding-left:18px;
+}
+
+li{
+margin-bottom:6px;
+}
+
+/* IMAGENES */
+
+.panel img{
+width:100%;
+border-radius:10px;
+margin-bottom:10px;
+}
+
+/* TARJETAS */
+
+.card{
+background:#f5fbff;
+padding:10px;
+border-radius:8px;
+margin-bottom:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="scene" onclick="toggle()">
+
+<div class="triptico" id="triptico">
+
+<!-- PORTADA -->
+
+<div class="portada">
+<img src="https://www.wikihow.com/images/thumb/a/ae/Insert-a-Nasogastric-%28NG%29-Tube-Step-1.jpg/aid5894210-v4-728px-Insert-a-Nasogastric-%28NG%29-Tube-Step-1.jpg.webp">
+<img class="logo" src="https://aula22institutoalameda.com/pluginfile.php/1/theme_academi/logo/1768493550/logo%20superior.jpg">
+
+
+
+
+<div class="info">
+
+<p><b>Docente:</b> MA. DE LOURDES ESPARZA VARELA</p>
+<p><b>Matería:</b> Enfermería médico-quirúrgica</p>
+<p><b>Alumna:</b> Natalia Orendain García</p>
+<p><b>Cuatrimestre:</b> 5° A</p>
+
+</div>
+
+<p style="margin-top:15px;"><b>Haz clic para abrir el tríptico</b></p>
+
+</div>
+
+<!-- CONTENIDO -->
+
+<!-- CONTENIDO -->
+
+<div class="panels">
+
+<!-- PANEL IZQUIERDO -->
+
+<div class="panel izq">
+
+<img src="https://m.media-amazon.com/images/I/512KiA7-IyL._AC_.jpg">
+
+<div class="icon">
+<i class="fas fa-hand-sparkles"></i>
+</div>
+
+<h2>¿Qué es?</h2>
+
+<div class="card">
+<p>
+La técnica abierta permite colocarse guantes estériles sin contaminar
+su superficie externa utilizando manos previamente lavadas.
+</p>
+</div>
+
+<h3>Objetivo</h3>
+
+<ul>
+<li>Mantener la asepsia</li>
+<li>Prevenir infecciones</li>
+<li>Manipular material estéril</li>
+<li>Evitar contaminación cruzada</li>
+</ul>
+
+</div>
+
+<!-- PANEL CENTRAL -->
+
+<div class="panel">
+
+
+
+<div class="icon">
+<i class="fas fa-procedures"></i>
+</div>
+
+<h2>Procedimiento</h2>
+
+<div class="card">
+<ol>
+<li>Lavado de manos.</li>
+<li>Abrir el paquete de guantes.</li>
+<li>Tomar el primer guante por el puño interno.</li>
+<li>Introducir la mano dominante.</li>
+<li>Tomar el segundo guante.</li>
+<li>Colocarlo evitando tocar la piel.</li>
+<li>Ajustar los guantes.</li>
+</ol>
+</div>
+<img src="https://st3.depositphotos.com/25086332/37411/v/450/depositphotos_374110386-stock-illustration-collection-hygiene-procedures-wash-your.jpg">
+
+</div>
+
+<!-- PANEL DERECHO -->
+
+<div class="panel der">
+
+<img src="https://www.ansell.com/-/media/projects/ansell/website/image-teaser/medical/ansell-cares/glove-donning-and-doffing/donning-and-doffing-intro.ashx?la=es-CO&mw=656&hash=A21B844D07A3B648603A6A0A11AAAE80">
+
+<div class="icon">
+<i class="fas fa-shield-virus"></i>
+</div>
+
+<h2>Recomendaciones</h2>
+
+<div class="card">
+<ul>
+<li>Mantener manos sobre la cintura</li>
+<li>No tocar superficies contaminadas</li>
+<li>Cambiar guantes contaminados</li>
+<li>Desechar después del procedimiento</li>
+</ul>
+</div>
+
+<h3>Importancia</h3>
+
+<div class="card">
+<p>
+El uso correcto de guantes reduce el riesgo de infecciones asociadas
+a la atención de la salud (IAAS) y protege tanto al paciente como al
+personal sanitario.
+</p>
+</div>
+<h3>Referencias</h3>
+
+<div class="card">
+<p style="font-size:13px;">
+
+Organización Mundial de la Salud. (2009). <i>Guía de la OMS sobre higiene de las manos en la atención sanitaria</i>. OMS.
+
+<br><br>
+
+Centers for Disease Control and Prevention. (2020). <i>Guideline for hand hygiene in health-care settings</i>. CDC.
+
+<br><br>
+
+Perry, A. G., Potter, P. A., & Ostendorf, W. R. (2018). <i>Clinical nursing skills and techniques</i> (9th ed.). Elsevier.
+
+<br><br>
+
+Berman, A., Snyder, S., & Frandsen, G. (2021). <i>Kozier & Erb's fundamentals of nursing</i> (11th ed.). Pearson.
+
+</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function toggle(){
+document.getElementById("triptico").classList.toggle("abierto")
+}
+
+</script>
+
+</body>
+</html>
